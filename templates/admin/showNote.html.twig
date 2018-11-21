@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir les dossier {% endblock %}
+
+
+{% block body %}
+
+    {% for note in note%}
+        <h2>Jury {{note.getjury.getType.name}}  </h2>
+        <h2>commentaire:{{note.comment}}</h2>
+        <h2>note : {{note.note}}</h2>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,60 @@
+<nav id="nav">
+    <div class="logo">
+      <a href="{{path('homepage')}}">
+      <img src="{{asset('/img/logosimplon.png')}}" alt="" >
+      </a>
+    </div>
+    <div class="logores">
+      <img src="../img/logo-couleur.png" alt="">
+    </div>
+    <div class="navbar">
+      <div class="">
+        <a href="#">A propos</a>
+      </div>
+      <div class="">
+        <a href="#">Les Projets</a>
+      </div>
+      <div class="">
+        <a href="#">Les Stages</a>
+      </div>
+      <div class="">
+        <a href="#">Nous Aider</a>
+      </div>
+      {% if app.user is not null %}
+      <a href="{{path('logout')}}" class="button">
+          deconnexion
+      </a>
+      {% else %}
+      <a href="{{path('login')}}" class="button">
+          BackDoor
+        </a>
+      {% endif %}
+      
+    </div>
+    <div class="burger-menu">
+          <div class="bar">
+            <span class="bar-1"> </span>
+            <span class="bar-2"> </span>
+            <span class="bar-3"> </span>
+          </div>
+    </div>
+  
+    </nav>
+    <div class="menu">
+      <li>
+          <a href="#">A propos</a>
+      </li>
+      <li>
+          <a href="#">Les Projets</a>
+      </li>
+      <li>
+          <a href="#">Les Stages</a>
+      </li>
+      <li>
+          <a href="#">Nous Aider</a>
+      </li>
+      <li>
+          <a href="{{path('login')}}">Backdoor</a>
+      </li>
+    </div>
+  

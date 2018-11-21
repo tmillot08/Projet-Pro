@@ -1,0 +1,41 @@
+
+{% extends "base.html.twig" %}
+{% block title %}Gestion Dossier - Simplon Charleville {% endblock %}
+{% block body %}
+<main>
+<h3 style="text-align:center; margin-top: 30px;">Liste des dossiers</h3>
+<div style="overflow-x:auto;">
+<table>
+  <thead>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Mail</th>
+      <th>Moyenne</th>
+      <th>Modification</th>
+  </thead>
+  <tbody>
+    {% for folder in folders %}
+      <tr>
+      <td>{{folder.getUser.name}}</td>
+      <td>{{folder.getUser.Fname}}</td>
+      <td>{{folder.getUser.mail}}</td>
+      {% if folder.finalNote is null %}
+        <td>Aucune note</td>
+      {% else %}
+        <td class="number">{{folder.finalNote}}</td>
+      {% endif %}
+      
+      <td class="modify">
+          <a href="{{ path('showFolder', {'id': folder.id})}}" class="fas fa-info tablebutton" title="plus d'information"></a>
+          <a href="{{ path('deleteUser', {'id': folder.id})}}" class="fas fa-trash tablebutton" title="supprimer le dossier"></a>
+      </td>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+</div>
+</main>
+
+
+{% endblock %}

@@ -1,0 +1,18 @@
+
+    {% if app.user is null %}
+        
+    {% elseif app.user.roles[0] == "ROLE_SECRETARY" and app.user.firstlogin == 0 %}
+    <div id="sousMenu">
+        <div class="sousTitle"><a href="{{path('addUser')}}">Ajout de dossier</a></div>
+        <div class="sousTitle"><a href="{{path('listeUser')}}">Liste des dossiers</a></div>
+    </div> 
+
+    {% elseif app.user.roles[0] == "ROLE_ADMIN" and app.user.firstlogin == 0 %}
+    <div id="sousMenu">
+        <div class="sousTitle"><a href="{{path('session')}}">Voir la session</a></div>
+        <div class="sousTitle"><a href="{{path('gestionSecretary')}}">Gestion Secretaire</a></div>
+        <div class="sousTitle"><a href="{{path('gestionUser')}}">Gestion Utilisateur</a></div>
+        <div class="sousTitle"><a href="{{path('gestionJury')}}">Gestion Jury</a></div>
+    </div> 
+    {% endif %}
+    

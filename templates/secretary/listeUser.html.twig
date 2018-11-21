@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Utilisateur - Simplon Charleville{% endblock %}
+
+
+{% block body %}
+   <main class="user">
+       <div class="filterbis">
+   <h2 style="text-align:center; margin-top: 20px;">Liste des dossiers</h2>
+   <div style="overflow-x:auto;">
+   <table class="tableuser" >
+       <thead>
+           <th>Prenom</th>
+           <th>Nom</th>
+           <th>Age</th>
+           <th>Mail</th>
+           <th>Tel</th>
+           <th>Sololearn</th>
+           <th>CodeAcademy</th>
+           <th>modification</th>
+       </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{user.name}}</td>
+            <td>{{user.fName}}</td>
+            <td class="number">{{user.age}}</td>
+            <td>{{user.mail}}</td>
+            <td class="number">{{user.number}}</td>
+            {% for folder in user.folder %}
+             <td class="number"><a href="{{folder.soloLink}}">{{folder.soloBadge}}</a></td>
+             <td class="number"><a href="{{folder.codeLink}}">{{folder.codeBadge}}</a></td>
+            {% endfor %}
+            <td class="modify"><a href="{{path('editUser', {'id': user.id})}}" class="far fa-edit tablebutton" title="modifier l'utilisateur"></a><a href="{{path('showUser', {'id': user.id})}}" class="fas fa-info tablebutton" title="voir l'utilisateur"></a></td>
+             
+        </tr>
+        {% endfor %}
+    </tbody>
+   </table>
+   </div>
+        </div>
+   </main>
+{% endblock %}

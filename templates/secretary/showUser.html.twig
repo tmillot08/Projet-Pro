@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dossier {{user.name}} {{user.fName}} - Simplon Charleville {% endblock %}
+
+
+{% block body %}
+    <main>
+    <div class="titlesection">
+     <h2>Dossier de {{user.name}} {{user.fName}} </h2>
+    </div>
+    <div class="titlesection">
+        <h3>Informations personnelles</h3> 
+    </div>
+    <section>
+        <div class="center col">
+                <div class="row">
+                    <p><b>Age:</b> {{folder.getUser.age}}</p>
+                    <p><b>Date de naissance:</b> {{folder.getUser.birthdate | date("d/m/Y")}} </p>
+                </div>
+                <div class="row">
+                    <p><b>Adresse:</b> {{folder.getUser.adress}}</p>
+                    <p><b>Ville:</b> {{folder.getUser.town}}</p>
+                </div>
+                <div class="row">
+                    <p><b>Nationalité:</b> {{folder.getUser.nationality}}</p>
+                    <p><b>Adresse E-mail:</b> {{folder.getUser.mail}} </p>
+                </div>
+                <div class="row">
+                    <p><b>Numero de téléphone:</b> {{folder.getUser.number}}</p>
+                </div>
+        </div>
+    </section>
+    <div class="titlesection">
+     <h3>Informations Simplon</h3>
+    </div>
+    {% for folder in user.folder %}
+    <section>
+        <div class="center col">
+                <div class="row">
+                    <p><b>Quel héros choissirez tu:</b> {{folder.hero}} </p>
+                    <p><b>Décrivez un hacks : </b>{{folder.hacks}} </p>
+                </div>
+                <div class="row">
+                    <p><b>pourquoi simplon: </b>{{folder.why}} </p>
+                    <p><b>dans un an ?:</b> {{folder.nextYear}} </p>
+                </div>
+                <div class="row">
+                    <p><b>Badge sololearn:</b> {{folder.soloBadge}} </p>
+                    <p><b>Badge codeacademy:</b> {{folder.codeBadge}} </p>
+                </div>
+                <div class="row">
+                    <p><b>Niveau anglais:</b> {{folder.english}} </p>
+                    <p><b>Dernier diplome:</b> {{folder.lastDiplome}} </p>
+                </div>
+        </div>
+    </section>
+     {% endfor %}
+    </main>
+{% endblock %}

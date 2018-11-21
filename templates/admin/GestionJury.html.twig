@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Gestion Jury - Simplon Charleville {% endblock %}
+{% block body %}
+<main class="jury">
+
+<div class="filterbis">
+
+<h3 style="text-align:center; margin-top: 30px; ">Liste des jurys</h3>
+<div style="overflow-x:auto;">
+<table>
+    
+    <thead>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Mail</th>
+        <th>Type</th>
+        <th>Modification</th>
+    </thead>
+    <tbody>
+        {% for jury in listJury %}
+        <tr>
+        <td>{{jury.name}}</td>
+        <td>{{jury.fName}}</td>
+        <td>{{jury.mail}}</td>
+        <td>{{jury.gettype.name}}</td>
+        <td class="modify">
+            <a href="{{ path('editJury', {'id': jury.id})}}" class="far fa-edit tablebutton" title="modifier le Jury"></a>
+            <a href="{{ path('deleteJury', {'id': jury.id})}}" class="fas fa-trash tablebutton" title="supprimer le Jury"></a>
+        </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+</div>
+<section>
+        {{ form_start(form, {'attr' : {'class':'form col'}})}}
+            <h3> Ajouter un Jury</h3>
+            <div class="row">
+                    {{ form_widget(form.name, {'attr' : {'class':'lineInput', 'placeholder': 'Nom'}})}}
+                    {{ form_widget(form.fName, {'attr' : {'class':'lineInput', 'placeholder': 'Prenom'}})}}
+            </div>
+            <div class="row">
+                    {{ form_widget(form.mail, {'attr' : {'class':'lineInput', 'placeholder': 'Mail'}})}}
+                    {{ form_widget(form.type, {'attr' : {'class':'lineInput', 'placeholder': 'Type du Jury'}})}}
+            </div>
+            <div class="rowsubmit" style="margin: 30px 0 30px 0  ">
+            <button type="submit" class="inputsubmit">Ajouter</button>
+            </div>
+        {{ form_end(form)}}
+        </section>
+</div>
+
+
+</main>
+
+{% endblock %}

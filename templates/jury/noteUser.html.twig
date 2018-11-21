@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notation dossier {{user.name}} {{user.fname}}{% endblock %}
+
+{% block body %}
+<main class="notation">
+    <div class="filterbis">
+        
+    <section >
+    {{ form_start(noteForm,{'attr':{'class': 'form col'}})}}
+       <div class="row">
+       <h2>Notation du Jury {{app.user.type.name}}</h2>
+       </div>
+       <div class="row">
+       <h2>Dossier de {{user.name}} {{user.fName}}  </h2>
+       </div>
+       <div class="row">
+       {{ form_widget(noteForm.comment,{'attr':{'class': 'inputcomment', 'placeholder':'Votre commentaire/ appréciation'}})}}
+       </div>
+       {{ form_widget(noteForm.note)}}
+       <div class="rowsubmit">
+       <button type="submit" class="inputsubmit">Noter le dossier</button>
+       </div>
+    {{ form_end(noteForm)}}
+    </section>
+    </div>
+</main>
+{% endblock %}

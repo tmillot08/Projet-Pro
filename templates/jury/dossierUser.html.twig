@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} dossier de {{user.name}} {{user.fName}} {% endblock %}
+
+{% block body %}
+<main>
+    <div class="titlesection">
+        <h2>Dossier de {{user.name}} {{user.fName}}  </h2>
+    </div>
+    <div class="titlesection">
+        <h3>Information personelle</h3> 
+    </div>
+    <section>
+        <div class="center col">
+            <div class="row">
+                <p>Age: {{user.age}}</p>
+                <p>Date de naissance: {{user.age}} </p>
+            </div>
+            <div class="row">
+                <p>Adresse: {{user.adress}}</p>
+                <p>Ville: {{user.town}}</p>
+            </div>
+            <div class="row">
+                <p>Nationalité: {{user.nationality}}</p>
+                <p>Adresse E-mail: {{user.mail}} </p>
+            </div>
+            <div class="row">
+                <p>Numero de téléphone: {{user.number}}</p>
+            </div>
+        </div>
+    </section>
+    <div class="titlesection">
+        <h3>Information Simplon</h3>
+    </div>
+    {% for folder in user.folder %}
+    <section>
+        <div class="center col">
+            <div class="row">
+                <p>Quel héros choissirez tu: {{folder.hero}} </p>
+                <p>Décrivez un hacks : {{folder.hacks}} </p>
+            </div>
+            <div class="row">
+                <p>pourquoi simplon: {{folder.why}} </p>
+                <p>dans un an ?: {{folder.nextYear}} </p>
+            </div>
+            <div class="row">
+                <p>Badge sololearn: {{folder.soloBadge}} </p>
+                <p>Badge code acaemy: {{folder.codeBadge}} </p>
+            </div>
+            <div class="row">
+                <p>Niveau anglais: {{folder.english}} </p>
+                <p>Dernier diplome: {{folder.lastDiplome}} </p>
+            </div>
+        </div>
+    </section>
+    <div class="titlesection">
+            <h3>Notation des Jurys</h3> 
+    </div>
+    <table>
+        <thead>
+            <th>Type de Jury</th>
+            <th >Commentaire</th>
+            <th>Note</th>
+        </thead>
+        <tbody>
+            {% for note in folder.note %}
+            <tr>
+                <td> {{note.getjury.getType.name}} </td>
+                <td class="comment">{{note.comment}}</td>
+                <td class="number">{{note.note}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+
+    
+   
+</main>
+
+{% endblock %}

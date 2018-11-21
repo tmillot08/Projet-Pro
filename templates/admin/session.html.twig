@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session Simplon{% endblock %}
+
+{% block body %}
+
+<h1>Session Simplon</h1>
+{% if session.sessionNow == 0 %}
+{{ form_start(form)}}
+{{ form_widget(form)}}
+<button type="submit">Commencer la session</button>
+{{ form_end(form)}}
+
+{% else %}
+  <h3>Session en cour </h3>
+  <p>la session prendra fin le {{session.dateEnd | date('d/m/Y')}} à {{session.dateEnd | date('H:i')}} </p>
+  <h3>Mettre à jour </h3>
+  {{ form_start(form)}}
+  {{ form_widget(form)}}
+   <button type="submit">Commencer la session</button>
+  {{form_end(form)}}
+
+  <a href="{{path('sessionclose')}}">Terminer la Session</a>
+{% endif %}
+
+
+{% endblock %}

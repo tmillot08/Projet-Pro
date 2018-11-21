@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des dossier{% endblock %}
+
+{% block body %}
+
+<main class="bgcode">
+   <div class="filterbis">
+      <div class="juryUser"> 
+         <h2 style="margin-top: 20px;">Liste des dossiers</h2>
+         <div class="ListUser">
+
+         {% for user in user %}
+            <div class="grid-item">
+               <img src="{{asset('/img/avatartest.jpg')}}" class="avatar">
+                  <div class="identity">{{user.name}} {{user.fName}}</div>
+                  <div class="middle">
+                     <a href="{{ path('noteUser', {'id': user.id})}}" class="buttonoverlay">Noter le dossier</a>
+                     <a href="{{ path('dossierUser', {'id': user.id})}}" class="buttonoverlay">Voir le dossier</a>
+                  </div>
+            </div>
+         {% endfor %}
+         </div>
+     </div> 
+   </div> 
+</main>
+{% endblock %}

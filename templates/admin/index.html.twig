@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - Simplon Charleville{% endblock %}
+
+{% block body %}
+
+<main class="home">
+    <section class="learn box">
+        <div class="container">
+            <h3  class="far fa-user"></h3>
+            <p>Gestion des Dossiers </p>
+            <a href="{{path('gestionUser')}}" class="buttonprolearn">Cliquez-ici</a>
+        </div>
+
+    </section>
+        
+    <section class="project box">
+        <div class="container">
+            <h3 class="far fa-comment-dots"></h3>
+            <p>Gestion des secrétaires</p>
+            <a href="{{path('gestionSecretary')}}" class="buttonprolearn">Cliquez-ici</a>
+        </div>
+
+    </section>
+
+    <section class="internship box">
+        <div class="container">
+            <h3  class="far fa-handshake"></h3>
+            <p>Gestion des Jurys</p>
+            <a href="{{path('gestionJury')}}" class="buttoninternhelp">Cliquez-ici</a>
+        </div>
+
+    </section>
+        
+    <section class="help box">
+
+        <div class="container">
+            <h3  class="fas fa-calendar-alt"></h3>
+            <p>Gestion de la Session</p>
+            <a href="{{path('session')}}" class="buttoninternhelp">Cliquez-ici</a>
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Simplon charleville{% endblock %}</title>
+        <link rel="stylesheet" href="{{asset('/css/reset.css')}}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('/css/style.css')}}">
+        
+        
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+         {% for label, messages in app.flashes %}
+            <div class="flashcenter">
+                <div class="{{label}}">
+                   {% for message in messages %}
+                       {{ message }}
+                   {% endfor %} 
+                </div>
+            </div>
+        {% endfor %}
+        {% include 'elements/nav.html.twig' %}
+        {% include 'elements/sousnav.html.twig' %}
+
+       
+        {% block body %}
+              
+          
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+        {% include 'elements/footer.html.twig' %}
+    </body>
+</html>

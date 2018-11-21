@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} dossier de {{folder.getUser.name}} {{folder.getUser.fName}} {% endblock %}
+
+{% block body %}
+
+<main>
+     <div class="titlesection">
+         <h2>Dossier de {{folder.getUser.name}} {{folder.getUser.fName}}  </h2>
+     </div>
+     <div class="titlesection">
+         <h3>Informations personnelles</h3> 
+     </div>
+     <section>
+         <div class="center col">
+             <div class="row">
+                 <p><b>Age:</b> {{folder.getUser.age}}</p>
+                 <p><b>Date de naissance:</b> {{folder.getUser.birthdate | date("d/m/Y")}} </p>
+             </div>
+             <div class="row">
+                 <p><b>Adresse:</b> {{folder.getUser.adress}}</p>
+                 <p><b>Ville:</b> {{folder.getUser.town}}</p>
+             </div>
+             <div class="row">
+                 <p><b>Nationalité:</b> {{folder.getUser.nationality}}</p>
+                 <p><b>Adresse E-mail:</b> {{folder.getUser.mail}} </p>
+             </div>
+             <div class="row">
+                 <p><b>Numero de téléphone:</b> {{folder.getUser.number}}</p>
+             </div>
+         </div>
+     </section>
+     <div class="titlesection">
+         <h3>Informations Simplon</h3>
+     </div>
+     <section>
+         <div class="center col">
+             <div class="row">
+                 <p><b>Quel héros choissirez tu:</b> {{folder.hero}} </p>
+                 <p><b>Décrivez un hacks : </b>{{folder.hacks}} </p>
+             </div>
+             <div class="row">
+                 <p><b>pourquoi simplon: </b>{{folder.why}} </p>
+                 <p><b>dans un an ?:</b> {{folder.nextYear}} </p>
+             </div>
+             <div class="row">
+                 <p><b>Badge sololearn:</b> {{folder.soloBadge}} </p>
+                 <p><b>Badge codeacademy:</b> {{folder.codeBadge}} </p>
+             </div>
+             <div class="row">
+                 <p><b>Niveau anglais:</b> {{folder.english}} </p>
+                 <p><b>Dernier diplome:</b> {{folder.lastDiplome}} </p>
+             </div>
+         </div>
+     </section>
+     <div class="titlesection">
+          <h3>Notation des Jurys</h3> 
+     </div>
+     <table>
+         <thead>
+             <th>Type de Jury</th>
+             <th >Commentaire</th>
+             <th>Note</th>
+         </thead>
+         <tbody>
+             {% for note in folder.note %}
+             <tr>
+                 <td> {{note.getjury.getType.name}} </td>
+                 <td class="comment">{{note.comment}}</td>
+                 <td class="number">{{note.note}}</td>
+             </tr>
+             {% endfor %}
+         </tbody>
+     </table> 
+     
+    
+ </main>
+
+{% endblock %}

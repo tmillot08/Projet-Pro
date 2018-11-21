@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}Connexion{% endblock %}
+
+
+{% block body %}
+<main class="login">
+<div class="bgcode">
+    <div class="filter">
+				<form class="form" method="post" action="{{path('login')}}">
+					<div class="avatar">
+						<img src="{{asset('/img/simploncharleville.png')}}" style="width: 90%" alt="logo du site simplon">
+					</div>
+
+					<h2 style="text-align: center; margin-top:20px; ">
+                        Se Connecter
+                    </h2>
+
+					<div class="input">
+                        <input class="inputtxt" type="text" required name="_username" placeholder="Votre Adresse Mail">
+                        <span class="focus"></span>
+						<span class="logoinput">
+							<i class="fa fa-user"></i>
+						</span>
+					</div>
+
+					<div class="input">
+						<input class="inputtxt" type="password" name="_password" placeholder="Votre Mot de passe">
+						<span class="focus"></span>
+						<span class="logoinput">
+							<i class="fa fa-lock"></i>
+						</span>
+					</div>
+
+					<div class="input">
+						<button type="submit" class="inputsubmit">
+							Connexion
+						</button>
+					</div>
+
+					<div class="text-center w-full p-t-25 p-b-230">
+						<a class="input">
+							Mot de passe oublié ?
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</main>
+{% endblock %}
