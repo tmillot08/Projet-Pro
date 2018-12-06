@@ -20,7 +20,7 @@
            <th>modification</th>
        </thead>
     <tbody>
-        {% for user in users %}
+        {% for user in pagination.data %}
         <tr>
             <td>{{user.name}}</td>
             <td>{{user.fName}}</td>
@@ -38,6 +38,7 @@
     </tbody>
    </table>
    </div>
-        </div>
+   {{ pagination.display}}
+   </div>
    </main>
 {% endblock %}

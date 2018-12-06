@@ -9,6 +9,8 @@
      <main class="secretary">
             <div class="filter col">
             <h3>Modification de {{user.name}} {{user.fName}} </h3>
+            {% form_theme addUserForm 'elements/form.html.twig' %}
+            {% form_theme addFolderForm 'elements/form.html.twig' %}
             {{ form_start(addUserForm,{'attr':{'class': 'form col'}})}}
             {{ form_start(addFolderForm)}}
             <div class="row">
@@ -29,7 +31,7 @@
             </div>
             <div class="row">
                 {{form_widget(addUserForm.number,{'attr' : {'class':'lineInput', 'placeholder': 'Numero de Télephone'}})}} 
-                {{form_widget(addFolderForm.english, {'attr' : {'class':'lineInput', 'placeholder': 'Niveau Anglais'}})}}
+                {{form_row(addUserForm.picture,{'attr' : {'class':'lineInput', 'placeholder': 'photo du candidat' }})}}
             </div>
             <div class="row">
                 {{form_widget(addFolderForm.hero,{'attr' : {'class':'linetxt', 'placeholder': 'Quel Hero?'}})}} 
@@ -49,6 +51,7 @@
             </div>
             <div class="row">
                 {{form_widget(addFolderForm.lastDiplome,{'attr' : {'class':'lineInput', 'placeholder': 'Dernier diplome obtenue'}})}} 
+                {{form_widget(addFolderForm.english, {'attr' : {'class':'lineInput', 'placeholder': 'Niveau Anglais'}})}}
             </div>
             <button type="submit" class="inputsubmit">Modifier  l'utilisateur</button>
          

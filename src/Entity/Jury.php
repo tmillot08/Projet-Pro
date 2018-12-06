@@ -8,9 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\JuryRepository")
+ * @UniqueEntity(
+ *  fields= {"mail"},
+ *  message= "L'email que vous avez indiqué est déjà utilisé!"
+ * )
  */
 class Jury implements UserInterface
 {

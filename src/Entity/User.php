@@ -29,7 +29,8 @@ class User
      * @Assert\Regex(
      *     pattern     = "/^[a-z]+$/i",
      *     htmlPattern = "^[a-zA-Z]+$",
-     *     message= "Le champs doit contenir seulement des lettres"
+     *     match= true,
+     *     message= "Le champ peut seulement contenir des lettres "
      * )
      */
     private $name;
@@ -39,7 +40,8 @@ class User
      * @Assert\Regex(
      *     pattern     = "/^[a-z]+$/i",
      *     htmlPattern = "^[a-zA-Z]+$",
-     *     message= "Le champs doit contenir seulement des lettres"
+     *     match= true,
+     *     message= "Le champ peut seulement contenir des lettres "
      * )
      */
     private $fName;
@@ -51,13 +53,17 @@ class User
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type="integer",
+     *     message= "{{ value }} peut seulement contenir des caracteres numériques."
+     * )
      * @Assert\GreaterThan(
-     *     value = 12,
-     *     message= "Votre age est incorrect"
+     *     value = 13,
+     *     message = " l'age doit être plus grand que 13 "
      * )
      * @Assert\LessThan(
      *     value = 100,
-     *     message= "Votre age est incorrect"
+     *     message = "l'age doit être plus petit que 100"
      * )
      */
     private $age;
@@ -69,12 +75,6 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex(
-     *     pattern     = "/^[a-z]+$/i",
-     *     htmlPattern = "^[a-zA-Z]+$",
-     *     message= "Le champs doit contenir seulement des lettres"
-     * 
-     * )
      */
     private $town;
 
@@ -83,15 +83,16 @@ class User
      * @Assert\Regex(
      *     pattern     = "/^[a-z]+$/i",
      *     htmlPattern = "^[a-zA-Z]+$",
-     *     message= "Le champs doit contenir seulement des lettres"
+     *     match= true,
+     *     message= "Le champ peut seulement contenir des lettres "
      * )
      */
     private $nationality;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Assert\Email(
-     *     message = "l\'email '{{ value }}' n\'est pas valide.",
+     * @Assert\Email(
+     *     message = " '{{ value }}' n\'est pas valide.",
      * )
      */
     private $mail;
@@ -101,17 +102,25 @@ class User
      * @Assert\Length(
      *      min = 10,
      *      max = 12,
-     *      minMessage = "Votre numero de téléphone est trop court",
-     *      maxMessage = "Votre numero de téléphone est trop long"
+     *      minMessage = "votre numéro est trop court",
+     *      maxMessage = "votre numéro est trop long"
      * )
      */
     private $number;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Folder", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Folder", mappedBy="user", cascade={"remove"})
      */
     private $folder;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      mimeTypesMessage = "le format du fichier n'\est pas valide "
+     * )
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -262,6 +271,18 @@ class User
                 $folder->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
 
         return $this;
     }

@@ -70,6 +70,11 @@ class JuryController extends AbstractController
                     $folderId->setFinalNote($moyenne);
                     $manager->persist($folderId);
                     $manager->flush();
+                    $this-> addflash(
+                        'success',
+                        "Votre note a été prise en compte"
+                    );
+                    return $this->redirectToRoute('listJuryUser');
                 }
                 
             }else{
@@ -96,6 +101,11 @@ class JuryController extends AbstractController
                     $folderId->setFinalNote($moyenne);
                     $manager->persist($folderId);
                     $manager->flush();
+                    $this-> addflash(
+                        'success',
+                        "Votre note a été modifiée"
+                    );
+                    return $this->redirectToRoute('listJuryUser');
                     
                 }
             }

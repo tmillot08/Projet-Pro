@@ -85,9 +85,11 @@ class AdminController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $mail = $secretary->getMail();
+            //generate random password
             $password =  $this->generatePassword();
+            // create the mail with all information
             $message = (new \Swift_Message('Votre Mot de passe'))
-            ->setFrom('thomas.millot08@gmail.com')
+            ->setFrom('simplonthomas@simplon-thomas.com')
             ->setTo($mail)
             ->setBody(
                 $this->renderView(
@@ -104,7 +106,11 @@ class AdminController extends AbstractController
 
             $manager->persist($secretary);
             $manager->flush();
-            $this->redirectToRoute('gestionSecretary');
+            $this-> addflash(
+                'success',
+                "Secrétaire a été ajouter"
+            );
+            return $this->redirectToRoute('gestionSecretary');
         }
 
         return $this->render('admin/GestionSecretaire.html.twig', [
@@ -140,7 +146,7 @@ class AdminController extends AbstractController
             $mail = $jury->getMail();
             $password =  $this->generatePassword();
             $message = (new \Swift_Message('Votre Mot de passe'))
-            ->setFrom('thomas.millot08@gmail.com')
+            ->setFrom('simplonthomas@simplon-thomas.com')
             ->setTo($mail)
             ->setBody(
                 $this->renderView(
@@ -158,7 +164,11 @@ class AdminController extends AbstractController
             $jury->setCreatedAt($now);
             $manager->persist($jury);
             $manager->flush();
-            $this->redirectToRoute('gestionJury');
+            $this-> addflash(
+                'success',
+                "Jury a été ajouté"
+            );
+            return $this->redirectToRoute('gestionJury');
         }
 
         return $this->render('admin/GestionJury.html.twig', [
@@ -180,6 +190,11 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($secretary);
             $manager->flush();
+            $this-> addflash(
+                'success',
+                "Secretaire a été modifié"
+            );
+            return $this->redirectToRoute('gestionSecretary');
         }
         return $this->render('admin/editSecretary.html.twig', [
             'secretary' => $secretary ,
@@ -197,6 +212,10 @@ class AdminController extends AbstractController
     {
         $manager->remove($secretary);
         $manager->flush();
+        $this-> addflash(
+            'success',
+            "Secrétaire supprimé"
+        );
         return $this->redirectToRoute('gestionSecretary');
     }
     
@@ -213,6 +232,11 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($jury);
             $manager->flush();
+            $this-> addflash(
+                'success',
+                "Jury a été modifié"
+            );
+            return $this->redirectToRoute('gestionJury');
         }
         return $this->render('admin/editJury.html.twig', [
             'jury' => $jury ,
@@ -230,6 +254,10 @@ class AdminController extends AbstractController
     {
         $manager->remove($jury);
         $manager->flush();
+        $this-> addflash(
+            'success',
+            "Jury a été supprimé"
+        );
         return $this->redirectToRoute('gestionJury');
     }
     
@@ -273,6 +301,10 @@ class AdminController extends AbstractController
     {
         $manager->remove($user);
         $manager->flush();
+        $this-> addflash(
+            'success',
+            "le dossier a été supprimé"
+        );
         return $this->redirectToRoute('gestionUser');
     }
 

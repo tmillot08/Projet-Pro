@@ -9,10 +9,12 @@ use App\Form\NoteType;
 use App\Entity\Secretary;
 use App\Form\AddUserType;
 use App\Form\DossierType;
+use App\Service\Pagination;
 use App\Repository\UserRepository;
 use App\Repository\SecretaryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -33,21 +35,45 @@ class SecretaryController extends AbstractController
 
         $form->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid()){
+
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $user->getPicture();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
             
+            // move file to the upload directory
+            try {
+                $file->move(
+                    $this->getParameter('identity_directory'),
+                    $fileName
+                );
+            }catch (FileException $e){
+                // redirect with error message if something happens during upload
+                $this-> addflash(
+                    'error',
+                    "Une erreur est survenue pendant l'upload"
+                );
+                return $this->redirectToRoute('addUser');
+            }
+            $user->setPicture($fileName);
             $manager->persist($user);
             $manager->flush();
             $id = $user->getId();
             $formfolder->handleRequest($request);
-            if($formfolder->isvalid()){
+            if($formfolder->isSubmitted()){
               
               $userid=$manager->getRepository(User::class)->find($id);
               $userid->getId();
               $folder->setUser($userid);
-              dump($folder);
-              die;
               $manager->persist($folder);
+              
               $manager->flush();
+              $this-> addflash(
+                'success',
+                "le dossier à été ajouté"
+              );
+              return $this->redirectToRoute('listeUser');
             }
         }
 
@@ -62,14 +88,14 @@ class SecretaryController extends AbstractController
     }
 
      /**
-     * @Route("/secretary/users", name="listeUser")
+     * @Route("/secretary/users/{page<\d+>?1}", name="listeUser")
      */
-    public function listeUser(UserRepository $repo)
+    public function listeUser(UserRepository $repo, $page, Pagination $pagination)
     {
-        $repo = $this->getDoctrine()->getRepository(User::class);
-        $users = $repo->findAll();
+        $pagination->setEntityClass(User::class)
+                   ->setPage($page);
         return $this->render('secretary/listeUser.html.twig', [
-            'users' => $users
+            'pagination' => $pagination,
         ]);
     }
 
@@ -81,19 +107,51 @@ class SecretaryController extends AbstractController
      */
     public function edit(User $user, Request $request, ObjectManager $manager)
     {
+        if($user->getPicture() != Null){    
+            $user->setPicture(
+                new File($this->getParameter('identity_directory').'/'.$user->getPicture())
+            );
+            $fileuser= $user->getPicture()->getFilename();
+        }
+        
         $form = $this->createForm(AddUserType::class, $user);
         $folder = $manager->getRepository(Folder::class)->findOneBy([
             'user' => $user,
         ]);
         $formFolder = $this->createForm(DossierType::class, $folder);
-
         $form->handleRequest($request);
-        $formFolder->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid() && $formFolder->isSubmitted() && $formFolder->isValid()){
+        $formFolder->handleRequest($request); 
+        if($form->isSubmitted() && $form->isValid() && $formFolder->isSubmitted()){
+      
+            if($user->getPicture() == Null){
+               $user->setPicture($fileuser);
+            }else{
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+             $file = $user->getPicture();
+             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+        
+            try {
+            $file->move(
+                $this->getParameter('identity_directory'),
+                $fileName
+            );
+            }catch (FileException $e){
+                $this-> addflash(
+                'error',
+                "Une erreur est survenue pendant l'upload"
+            );
+            return $this->redirectToRoute('addUser');
+            }
+            $user->setPicture($fileName);
+        };
             $manager->persist($user, $folder);
             $manager->flush();
+            $this-> addflash(
+                'success',
+                "le dossier à été modifié"
+            );
+            return $this->redirectToRoute('listeUser');
         }
-
 
         return $this->render('secretary/editUser.html.twig', [
             'user' => $user,
@@ -116,5 +174,12 @@ class SecretaryController extends AbstractController
         return $this->render('secretary/showUser.html.twig', [
             'user' => $user,
         ]);
+    }
+
+    private function generateUniqueFileName()
+    {
+        // md5() reduces the similarity of the file names generated by
+        // uniqid(), which is based on timestamps
+        return md5(uniqid());
     }
 }

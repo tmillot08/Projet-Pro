@@ -27,7 +27,7 @@
       
       <td class="modify">
           <a href="{{ path('showFolder', {'id': folder.id})}}" class="fas fa-info tablebutton" title="plus d'information"></a>
-          <a href="{{ path('deleteUser', {'id': folder.id})}}" class="fas fa-trash tablebutton" title="supprimer le dossier"></a>
+          <a href="{{ path('deleteUser', {'id': folder.getUser.id})}}" class="fas fa-trash tablebutton" title="supprimer le dossier"></a>
       </td>
       </tr>
     {% endfor %}

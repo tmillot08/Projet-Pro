@@ -7,7 +7,9 @@ use App\Form\DossierType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -32,7 +34,10 @@ class AddUserType extends AbstractType
             ->add('town',TextType::class)
             ->add('nationality',TextType::class)
             ->add('mail',EmailType::class)
-            ->add('number',NumberType::class)
+            ->add('number',TextType::class)
+            ->add('picture', FileType::class,[
+                'required' => false
+            ])
         ;
     }
 

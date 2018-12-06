@@ -12,7 +12,12 @@
 
          {% for user in user %}
             <div class="grid-item">
+               {% if user.picture is null %}
                <img src="{{asset('/img/avatartest.jpg')}}" class="avatar">
+               {% else %}
+               <img src="{{asset('/uploads/identity/' ~ user.picture) }}" class="avatar">
+               {% endif %}
+               
                   <div class="identity">{{user.name}} {{user.fName}}</div>
                   <div class="middle">
                      <a href="{{ path('noteUser', {'id': user.id})}}" class="buttonoverlay">Noter le dossier</a>

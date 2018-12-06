@@ -42,26 +42,34 @@ class Folder
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Url(
-     *    message = "l\'url '{{ value }}' n'est pas valide",
+     *    message = "l\'url '{{ value }}' n\'est pas valide",
      * )
      */
     private $soloLink;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type="integer",
+     *     message= "{{ value }} peut seulement contenir des caracteres numériques."
+     * )
      */
     private $soloBadge;
 
     /**
-     * @Assert\Url(
-     *    message = "l\'url '{{ value }}' n'est pas valide",
-     * )
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(
+     *    message = "l\'url '{{ value }}' n\'est pas valide",
+     * )
      */
     private $codeLink;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type="integer",
+     *     message= "{{ value }} peut seulement contenir des caracteres numériques."
+     * )
      */
     private $codeBadge;
 
@@ -81,7 +89,7 @@ class Folder
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="folder")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="folder", cascade={"remove"})
      */
     private $note;
 

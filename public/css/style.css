@@ -15,9 +15,23 @@ h1{
   font-weight: 800;
   color: white;
 }
+
+.form_row{
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+.error_msg{
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  color: red;
+
+}
 .flashcenter{
   display: flex;
   justify-content: center;
+  
 }
 .success{
   font-size: 17px;
@@ -27,6 +41,7 @@ h1{
   background-color: rgba(50,205,50, 0.8);
   animation: slide 5s;
   padding: 1rem;
+  z-index: 999;
   border-radius: 6px;
 }
 
@@ -39,6 +54,7 @@ h1{
   background-color: rgba(246,3,3,0.8);
   animation: slide 5s;
   padding: 1rem;
+  z-index: 999;
   border-radius: 6px;
 }
 
@@ -796,6 +812,14 @@ footer a{
   justify-content: space-around;
  
 }
+.form_row .lineInput{
+  background-color: transparent;
+  font-size:18px;
+  width:100%;
+  border:none;
+  border-bottom:solid 2px #000000;;
+  color:#000000;
+}
 
 .lineInput{
     background-color: transparent;
@@ -804,8 +828,8 @@ footer a{
     border:none;
     border-bottom:solid 2px #000000;;
     color:#000000;
- 
 }
+
 
 .lineInput::placeholder{
   color:#000000;
@@ -1043,6 +1067,37 @@ main{
     background-attachment:fixed;
     background-position-y: 50%;
 }
+
+/* PAGINATION */
+.paginationbar{
+  display: flex;
+  justify-content: center;
+}
+.pagination{
+  display: inherit;
+  flex-direction: row;
+}
+
+.page-link{
+  padding: 0.5rem 0.75rem;
+  color: #000000;
+  font-size: 20px;
+  border: 1px solid black;
+}
+
+.page-link:hover{
+
+  background-color: gray;
+}
+.page-item.active .page-link{
+  color: white ;
+  background-color: #E80041;
+}
+.page-item.disable .page-link{
+  pointer-events: none; 
+  cursor: auto;
+}
+
 /* MEDIA */
 
 @media (max-width: 1140px) {
