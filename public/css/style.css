@@ -1072,6 +1072,7 @@ main{
 .paginationbar{
   display: flex;
   justify-content: center;
+  padding-bottom: 15px;
 }
 .pagination{
   display: inherit;

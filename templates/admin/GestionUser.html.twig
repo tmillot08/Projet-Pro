@@ -14,7 +14,7 @@
       <th>Modification</th>
   </thead>
   <tbody>
-    {% for folder in folders %}
+    {% for folder in pagination.data %}
       <tr>
       <td>{{folder.getUser.name}}</td>
       <td>{{folder.getUser.Fname}}</td>
@@ -35,6 +35,7 @@
   </tbody>
 </table>
 </div>
+{{ pagination.display}}
 </main>
 
 

@@ -18,7 +18,7 @@
         <th>Modification</th>
     </thead>
     <tbody>
-        {% for jury in listJury %}
+        {% for jury in pagination.data %}
         <tr>
         <td>{{jury.name}}</td>
         <td>{{jury.fName}}</td>
@@ -34,6 +34,7 @@
     </tbody>
 </table>
 </div>
+{{ pagination.display}}
 <section>
         {{ form_start(form, {'attr' : {'class':'form col'}})}}
             <h3> Ajouter un Jury</h3>

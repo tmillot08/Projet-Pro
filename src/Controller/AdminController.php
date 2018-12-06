@@ -16,6 +16,7 @@ use App\Repository\UserRepository;
 use App\Repository\FolderRepository;
 use App\Repository\SessionRepository;
 use App\Repository\SecretaryRepository;
+use App\Service\Pagination;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,11 +74,13 @@ class AdminController extends AbstractController
 
 
     /**
-     * @Route("/administration/GestionSecretaire", name="gestionSecretary")
+     * @Route("/administration/GestionSecretaire/{page<\d+>?1}", name="gestionSecretary")
      */
-    public function secretaire(SecretaryRepository $repo, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
+    public function secretaire(SecretaryRepository $repo, Request $request,$page, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, Pagination $pagination)
     {
-        $listSecretary = $repo->findAll();
+        $pagination->setEntityClass(Secretary::class)
+                   ->setPage($page)
+                   ->SetLimit(3);
         $secretary  = new Secretary();
         $form = $this->createForm(RegistrationType::class, $secretary);
 
@@ -115,28 +118,31 @@ class AdminController extends AbstractController
 
         return $this->render('admin/GestionSecretaire.html.twig', [
             'form' => $form->createView(),
-            'secretary' => $listSecretary
+            'pagination' => $pagination
         ]);
     }
 
     /**
-     * @Route("/administration/gestionUtilisateur", name="gestionUser")
+     * @Route("/administration/gestionUtilisateur/{page<\d+>?1}", name="gestionUser")
      */
-    public function user(FolderRepository $repo, Request $request, ObjectManager $manager)
+    public function user(FolderRepository $repo, Request $request, $page , ObjectManager $manager, Pagination $pagination)
     {
-        $listFolder = $repo->findAll();
+        $pagination->setEntityClass(Folder::class)
+                   ->setPage($page);
 
         return $this->render('admin/GestionUser.html.twig', [
-            'folders' => $listFolder
+            'pagination' => $pagination
         ]);
     }
 
     /**
-     * @Route("/administration/gestionJury", name="gestionJury")
+     * @Route("/administration/gestionJury/{page<\d+>?1}", name="gestionJury")
      */
-    public function jury(JuryRepository $repo, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
+    public function jury(JuryRepository $repo, Request $request, ObjectManager $manager, $page, UserPasswordEncoderInterface $encoder, Pagination $pagination, \Swift_Mailer $mailer)
     {
-        $listJury = $repo->findAll();
+        $pagination->setEntityClass(Jury::class)
+                   ->setPage($page)
+                   ->setLimit(3);
         $jury  = new Jury();
         $form = $this->createForm(RegistrationJuryType::class, $jury);
 
@@ -173,7 +179,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/GestionJury.html.twig', [
             'form' => $form->createView(),
-            'listJury' => $listJury        
+            'pagination' => $pagination    
         ]);
     }
     
