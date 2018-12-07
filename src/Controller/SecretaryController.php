@@ -92,7 +92,7 @@ class SecretaryController extends AbstractController
      */
     public function listeUser(UserRepository $repo, $page, Pagination $pagination)
     {
-        $pagination->setEntityClass(Folder::class)
+        $pagination->setEntityClass(User::class)
                    ->setPage($page);
         return $this->render('secretary/listeUser.html.twig', [
             'pagination' => $pagination,

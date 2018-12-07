@@ -5,12 +5,12 @@
 {% block body %}
 
 <main class="bgcode">
-   <div class="filterbis">
+   <div class="filterbis" style="align-items: center">
       <div class="juryUser"> 
          <h2 style="margin-top: 20px;">Liste des dossiers</h2>
          <div class="ListUser">
 
-         {% for user in user %}
+         {% for user in pagination.data %}
             <div class="grid-item">
                {% if user.picture is null %}
                <img src="{{asset('/img/avatartest.jpg')}}" class="avatar">
@@ -26,6 +26,7 @@
             </div>
          {% endfor %}
          </div>
+         {{ pagination.display}}
      </div> 
    </div> 
 </main>

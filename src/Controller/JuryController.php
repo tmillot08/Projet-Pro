@@ -8,6 +8,7 @@ use App\Entity\Note;
 use App\Entity\User;
 use App\Entity\Folder;
 use App\Form\NoteType;
+use App\Service\Pagination;
 use App\Repository\UserRepository;
 use App\Repository\SecretaryRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +19,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class JuryController extends AbstractController
 {
     /**
-     * @Route("/jury/listeUtilisateur", name="listJuryUser")
+     * @Route("/jury/listeUtilisateur/{page<\d+>?1}", name="listJuryUser")
      */
-    public function listeUser(UserRepository $repo)
+    public function listeUser(UserRepository $repo, $page,  Pagination $pagination)
         {
-            $repo = $this->getDoctrine()->getRepository(User::class);
-            $user = $repo->findAll();
+            $pagination->setEntityClass(User::class)
+                       ->setPage($page)
+                       ->setLimit(15);
             return $this->render('jury/listeUser.html.twig', [
-                'user' => $user
+                'pagination' => $pagination
             ]);
         }
 
